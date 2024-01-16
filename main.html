@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Access Site</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<form id="accessForm" action="/access" method="post" onsubmit="checkAccessCode(event)">
+    <!-- Add a hidden input field for the secret number -->
+    <input type="hidden" id="secret" name="secret" value="0405">
+
+    <label for="code">Gib einen 4-Stelligen Code ein:</label>
+    <input type="number" id="code" name="code" min="0001" max="9999" step="1" required>
+    <!-- Add ID to the submit button -->
+    <input type="submit" id="submitButton" value="Einloggen">
+
+    <!-- Notification element -->
+    <div id="notification" style="color: red;"></div>
+</form>
+
+<script>
+       function checkAccessCode(event) {
+           event.preventDefault(); // Prevent the form from submitting
+
+           // Get the entered code and predefined secret
+           var enteredCode = document.getElementById('code').value;
+           var predefinedSecret = document.getElementById('secret').value;
+
+           // Get the notification element
+           var notificationElement = document.getElementById('notification');
+
+           // Check if the entered code is correct
+           if (enteredCode === predefinedSecret) {
+               // Redirect to congratulations.html
+               window.location.href = 'congratulation.html';
+           } else {
+               // Display an error message in the notification element
+               notificationElement.textContent = 'Falscher Code, versuche es erneut.';
+           }
+       }
+   </script>
+</body>
+</html>

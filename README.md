@@ -1,2 +1,2 @@
 # CodeSeite
-Bruteforce auf eine HTML Seite
+Ein kleines Projekt, bei dem man einen 4 Stelligen Code herausfinden muss, um zugang zu einer Webseite zu erhalten
