@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+ 
+    <!-- This is the default path. -->
+    <!-- If it takes up too much memory space, move the directory to another
+        hard disk and edit this path -->
+    <localRepository>${user.home}/.m2/repository</localRepository>
+ 
+    <mirrors>
+        <mirror>
+            <!-- This sends everything else to maven-public -->
+            <!-- maven-public is a group that contains the content of the other repositories e(created in nexus) -->
+            <!-- To access a new repository, the nexus admin must integrate it in the nexus and add it to the members of this group -->
+            <id>nexus.repo</id>
+            <name>Nexus 13.31 - Group with all repositories</name>
+            <mirrorOf>*</mirrorOf>
+            <url>http://lnp-vp01:1331/nexus/repository/maven-public/</url>
+        </mirror>
+    </mirrors>
+ 
+    <servers>
+        <server>
+            <id>nexus.repo</id>
+            <username>deployment</username>
+            <password>123.deployment</password>
+        </server>
+    </servers>
+ 
+    <profiles>
+        <profile>
+            <id>nexus</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <name>Central Repository</name>
+                    <url>http://central</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <name>Central Repository</name>
+                    <url>http://central</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+        <profile>
+            <id>mavenSettings</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
+                <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
+                <maven.wagon.http.ssl.ignore.validity.dates>true</maven.wagon.http.ssl.ignore.validity.dates>
+            </properties>
+        </profile>
+    </profiles>
+ 
+    <activeProfiles>
+        <activeProfile>nexus</activeProfile>
+        <activeProfile>mavenSettings</activeProfile>
+   </activeProfiles>
+</settings>
